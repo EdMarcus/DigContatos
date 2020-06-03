@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "813562315008",
+    "firebase_url": "https://digcontatos.firebaseio.com",
+    "project_id": "digcontatos",
+    "storage_bucket": "digcontatos.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:813562315008:android:2f1c6d837c3f32200bb3e5",
+        "android_client_info": {
+          "package_name": "io.github.edmarcus.digcontatos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "813562315008-qns3fltgolbr8qst6mfefk98196c6g7q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.github.edmarcus.digcontatos",
+            "certificate_hash": "cb088e4e26a21530312c701b665fa9b7b5cd82de"
+          }
+        },
+        {
+          "client_id": "813562315008-g35tuisb532pb9baldp7srtihs30btcd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNk-QMOF2SnawbombIAOO8c-tmD092RxI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "813562315008-g35tuisb532pb9baldp7srtihs30btcd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
