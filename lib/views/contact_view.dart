@@ -25,70 +25,53 @@ class _ContactViewState extends State<ContactView> {
       onWillPop: _requestPop,
       child: Scaffold(
         appBar: GradientAppBar(
-        gradient: LinearGradient(
-            colors: [Colors.blue, Colors.indigo],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter),
-        title: Text(
-          "DIG CONTATOS",
-          style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-      ),
-        floatingActionButton: FloatingActionButton(
-          clipBehavior: Clip.antiAlias,
-          child: Container(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
+          gradient: LinearGradient(
               colors: [Colors.blue, Colors.indigo],
               begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            )),
-            child: Icon(Icons.save),
-            width: double.infinity,
-            height: double.infinity,
+              end: Alignment.bottomCenter),
+          title: Text(
+            "DIG CONTATOS",
+            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
           ),
-          onPressed: () {
-            if(_editedContact.name != null && _editedContact.name.isNotEmpty){
-              Navigator.pop(context, _editedContact);
-            } else {
-              FocusScope.of(context).requestFocus(_nameFocus);
-            }
-          },
+          centerTitle: true,
         ),
         body: SingleChildScrollView(
           padding: EdgeInsets.all(10.0),
           child: Column(
             children: <Widget>[
               GestureDetector(
-                child: Container(
-                  child: CircleAvatar(
-                    maxRadius: 80,
-                    child: _editedContact.img == null
-                      ? Icon(Icons.person, size: 100) : null,
-                    minRadius: 80,
-                    backgroundImage: _editedContact.img != null
-                    ? FileImage(File(_editedContact.img)):
-                    null,
+                  child: Container(
+                    child: CircleAvatar(
+                      maxRadius: 80,
+                      child: _editedContact.img == null
+                          ? Icon(Icons.person, size: 100)
+                          : null,
+                      minRadius: 80,
+                      backgroundImage: _editedContact.img != null
+                          ? FileImage(File(_editedContact.img))
+                          : null,
+                    ),
                   ),
-                ),
-                onTap: (){
-                  ImagePicker iP = ImagePicker();
-                  iP.getImage(source: ImageSource.camera).then((file) {
-                    if(file == null) return;
-                    setState(() {
-                      _editedContact.img = file.path;
+                  onTap: () {
+                    ImagePicker iP = ImagePicker();
+                    iP.getImage(source: ImageSource.camera).then((file) {
+                      if (file == null) return;
+                      setState(() {
+                        _editedContact.img = file.path;
+                      });
                     });
-                  } );
-                }
-              ),
+                  }),
+              SizedBox(height: 20),
               TextField(
                 style: TextStyle(
-                color: Colors.indigo,
-              ),
+                  color: Colors.indigo,
+                ),
                 controller: _nameController,
                 focusNode: _nameFocus,
-                decoration: InputDecoration(labelText: "Nome:"),
+                decoration: InputDecoration(
+                    labelText: "Nome:",
+                    filled: true,
+                    fillColor: Colors.grey[300]),
                 onChanged: (text) {
                   _userEdited = true;
                   setState(() {
@@ -96,29 +79,53 @@ class _ContactViewState extends State<ContactView> {
                   });
                 },
               ),
+              SizedBox(height: 30),
               TextField(
                 style: TextStyle(
-                color: Colors.indigo,
-              ),
+                  color: Colors.indigo,
+                ),
                 controller: _emailController,
-                decoration: InputDecoration(labelText: "E-mail:"),
+                decoration: InputDecoration(
+                    labelText: "E-mail:",
+                    filled: true,
+                    fillColor: Colors.grey[300]),
                 onChanged: (text) {
                   _userEdited = true;
                   _editedContact.email = text;
                 },
                 keyboardType: TextInputType.emailAddress,
               ),
+              SizedBox(height: 30),
               TextField(
                 style: TextStyle(
-                color: Colors.indigo,
-              ),
+                  color: Colors.indigo,
+                ),
                 controller: _phoneController,
-                decoration: InputDecoration(labelText: "Telefone:"),
+                decoration: InputDecoration(
+                    labelText: "Telefone:",
+                    filled: true,
+                    fillColor: Colors.grey[300]),
                 onChanged: (text) {
                   _userEdited = true;
                   _editedContact.phone = text;
                 },
                 keyboardType: TextInputType.phone,
+              ),
+              Container(
+                padding: EdgeInsets.only(top: 20),
+                alignment: Alignment.bottomRight,
+                child: RaisedButton(
+                  color: Colors.blue,
+                  child: Text("SALVAR", style: TextStyle(color: Colors.white)),
+                  onPressed: () {
+                    if (_editedContact.name != null &&
+                        _editedContact.name.isNotEmpty) {
+                      Navigator.pop(context, _editedContact);
+                    } else {
+                      FocusScope.of(context).requestFocus(_nameFocus);
+                    }
+                  },
+                ),
               ),
             ],
           ),
@@ -142,31 +149,31 @@ class _ContactViewState extends State<ContactView> {
     }
   }
 
-  Future<bool> _requestPop(){
-    if(_userEdited){
-      showDialog(context: context,
-        builder: (context){
-          return AlertDialog(
-            title: Text("Descartar alterações?"),
-            content: Text("Se sair, as alterações serão perdidas!"),
-            actions: <Widget>[
-              FlatButton(
-                child: Text("Cancelar"),
-                onPressed: (){
-                  Navigator.pop(context);
-                },
-              ),
-              FlatButton(
-                child: Text("Sim"),
-                onPressed: (){
-                  Navigator.pop(context);
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          );
-        }
-      );
+  Future<bool> _requestPop() {
+    if (_userEdited) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text("Descartar alterações?"),
+              content: Text("Se sair, as alterações serão perdidas!"),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text("Cancelar"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                FlatButton(
+                  child: Text("Sim"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            );
+          });
       return Future.value(false);
     } else {
       return Future.value(true);
